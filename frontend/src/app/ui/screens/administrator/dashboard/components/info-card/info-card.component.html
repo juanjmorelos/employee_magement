@@ -1,0 +1,23 @@
+@if(child) {
+    <div class="stats shadow w-full h-full">
+        <div class="stat flex items-center">
+            <div class="stat-figure text-primary mr-2">
+                <ng-content select="[icon]"></ng-content>  
+            </div>
+            <div>
+                <div class="stat-title text-wrap">{{title}}</div>
+                <div class="stat-value text-sm sm:text-base md:text-lg lg:text-xl break-words text-wrap">{{value}}</div>
+                @if (subtitle != "") {
+                    <div class="stat-desc text-wrap">{{subtitle}}</div>
+                }
+            </div>
+        </div>
+    </div>
+} @else {
+    <div class="stats shadow-xl col-span-3 w-full h-full">
+        <div class="stat place-items-center w-full">
+            <div class="text-2xl font-semibold text-wrap">{{title}}</div>
+            <div class="stat-title text-wrap">{{value}}</div>
+        </div>
+    </div>
+}

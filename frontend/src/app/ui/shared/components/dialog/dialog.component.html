@@ -1,0 +1,15 @@
+<dialog id="my_modal_2" class="modal modal-bottom sm:modal-middle">
+  <div class="modal-box">
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+    </form>
+    <h3 class="font-bold text-lg">{{title}}</h3>
+    <p class="py-4">{{message}}</p>
+    <div class="modal-action">
+      <form method="dialog">
+        <!-- if there is a button in form, it will close the modal -->
+        <button class="btn">{{buttonText}}</button>
+      </form>
+    </div>
+  </div>
+</dialog>
