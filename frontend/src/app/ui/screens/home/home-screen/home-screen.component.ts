@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { MobileNavbarComponent } from '../components/mobile-navbar/mobile-navbar.component';
 
 
+
 @Component({
   selector: 'home-screen',
   standalone: true,
