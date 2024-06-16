@@ -1,0 +1,58 @@
+<div class="mr-4 ml-4 mt-4">
+    <app-title title="Reportes de nómina"></app-title>
+</div>
+<div class="stats shadow mt-3 ml-4">
+    <div class="stat">
+        <div class="stat-title">Total nomina:</div>
+        <div class="stat-value">$11,000,000</div>
+        <div class="stat-desc">Periodo: 1 jun 2024 - 30 jun 2024</div>
+    </div>
+</div>
+<div class="card bg-base-100 shadow-xl mt-4 mb-4 p-1 relative overflow-visible mr-4 ml-4">
+    <div class="relative overflow-x-auto">
+        <table class="table">
+            <!-- head -->
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Identificación</th>
+                    <th>Nombre</th>
+                    <th>Cargo</th>
+                    <th class="text-center">Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (employee of employeeList; track employee) {
+                <tr class="hover">
+                    <th>{{ employee.id }}</th>
+                    <td>{{ employee.identifier }}</td>
+                    <td>{{ employee.name }} {{ employee.lastName }}</td>
+                    <td>{{ employee.position }}</td>
+
+                    <td class="flex align-center gap-2 justify-center">
+                        <label>
+                            <a class="btn btn-ghost rounded-full btn-xs" [routerLink]="'/home/payment_reports/employee/' + employee.id">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="size-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                </svg>
+                            </a>
+                        </label>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        <div class="join flex justify-end mt-3 mr-3 mb-2">
+            <button class="join-item btn btn-outline btn-sm">«</button>
+            <input class="join-item btn btn-outline btn-sm" type="radio" name="options" aria-label="1" checked />
+            <input class="join-item btn btn-outline btn-sm" type="radio" name="options" aria-label="2" />
+            <input class="join-item btn btn-outline btn-sm" type="radio" name="options" aria-label="3" />
+            <input class="join-item btn btn-outline btn-sm" type="radio" name="options" aria-label="4" />
+            <button class="join-item btn btn-outline btn-sm">»</button>
+        </div>
+    </div>
+</div>

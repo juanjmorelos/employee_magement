@@ -1,0 +1,44 @@
+<div class="flex justify-center items-center py-4 px-8">
+    <div class="card lg:w-5/12 sm:w-full bg-base-100 shadow-xl">
+        <div class="card-body items-start text-center">
+            <h2 class="card-title text-start mb-3">Actualizar datos de la compañía</h2>
+            <div class="form-control w-full">
+                <label class="label">
+                    <span class="label-text font-semibold">Nombre</span>
+                </label>
+                <input type="text" class="input input-bordered" value="Universidad Minuto de Dios" />
+            </div>
+            <div class="form-control w-full mb-3">
+                <label class="label">
+                    <span class="label-text font-semibold">Nit</span>
+                </label>
+                <input type="number" class="input input-bordered" value="8023838398" />
+            </div>
+            <div class="grid grid-cols-1 space-y-2 form-contro w-full">
+                <label class="label">
+                    <span class="label-text font-semibold">Logo de la compañía</span>
+                </label>
+                <div class="flex items-center justify-center w-full">
+                    <label class="flex flex-col rounded-lg border-4 border-dashed w-full h-60 p-10 group text-center">
+                        <div class="h-full w-full text-center flex flex-col items-center justify-center items-center  ">
+                            <div class="flex flex-auto max-h-48 w-2/5 mx-auto -mt-10">
+                                <img class="has-mask w-36 object-center mb-3 mt-3"
+                                    src="https://img.freepik.com/free-vector/image-upload-concept-landing-page_52683-27130.jpg?size=338&ext=jpg"
+                                    alt="freepik image">
+                            </div>
+                            <p class="pointer-none text-gray-500 ">
+                                <label for="input-file" class="text-primary hover:underline cursor-pointer">Selecciona un archivo</label>
+                            </p>
+                        </div>
+                        <input type="file" class="hidden" id="input-file" accept="png, jpg, jpeg">
+                    </label>
+                </div>
+            </div>
+            <p class="text-sm text-gray-300">
+                <span>Archivos permitidos: png, jgp, jpeg</span>
+            </p>
+            <div class="card-actions pt-8 w-full">
+                <button class="btn btn-primary w-full">Guardar cambios</button>
+            </div>
+        </div>
+    </div>

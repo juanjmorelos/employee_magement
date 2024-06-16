@@ -1,0 +1,111 @@
+<div class="card w-full bg-base-100 shadow-xl overflow-hidden py-4 flex flex-col">
+    <div class="grid grid-cols-6 justify-center items-center w-full">
+        <img src="https://www.acofi.edu.co/wp-content/uploads/2013/10/CORPORACION-UNIVERSITARIA-MINUTO-DE-DIOS.jpeg"
+            alt="logo" class="self-start w-24 ml-[50px]">
+        <figure class="col-span-4 flex flex-col">
+            <label class="font-bold text-center text-sm">CORPORACION UNIVERSITARIA MINUTO DE DIOS</label>
+            <label class="font-bold text-center text-sm">NIT: 8023838398</label>
+            <label class="font-bold text-center text-sm">COMPROBANTE DE NÓMINA</label>
+            <label class="font-bold text-center text-sm">{{month_letter}} 1 DE {{year}} A {{month_letter}} {{getPeriodDay(month)}} DE {{year}}</label>
+        </figure>
+    </div>
+    <div class="grid grid-cols-3 p-[10px] mx-2 border rounded-2xl border-gray-400 mt-3">
+        <div class="flex flex-col text-sm gap-4">
+            <label>
+                <span class="font-semibold">Página: </span> 1
+            </label>
+            <label>
+                <span class="font-semibold">Dirección: </span> CL 50#50-57
+            </label>
+        </div>
+        <div class="flex flex-col text-sm gap-4">
+            <label>
+                <span class="font-semibold">Email: </span> juan.morelos&#64;uniminuto.edu.co
+            </label>
+            <label>
+                <span class="font-semibold">Teléfono: </span> 60565677
+            </label>
+        </div>
+        <div class="flex flex-col text-sm gap-4">
+            <label>
+                <span class="font-semibold">Comprobante de pago Nº: </span> 32456
+            </label>
+            <label>
+                <span class="font-semibold">Fecha/Hora: </span> 28/{{month}}/{{year}} 11:30 AM
+            </label>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-3 p-[10px] mx-2 border rounded-2xl border-gray-400 mt-3">
+        <div class="flex flex-col text-sm gap-4">
+            <label>
+                <span class="font-semibold">Identificación: </span> 1065013739
+            </label>
+            <label>
+                <span class="font-semibold">Sueldo básico: </span> $ 4,000,000
+            </label>
+        </div>
+        <div class="flex flex-col text-sm gap-4">
+            <label>
+                <span class="font-semibold">Apellido y nombre: </span> Morelos Acosta Juan
+            </label>
+            <label>
+                <span class="font-semibold">Cargo: </span> Desarrollador de aplicaciones junior
+            </label>
+        </div>
+        <div class="flex flex-col text-sm gap-4">
+            <label>
+                <span class="font-semibold">Cuenta:</span> 4990005433
+            </label>
+            <label>
+                <span class="font-semibold">Entidad: </span> Bancolombia
+            </label>
+        </div>
+    </div>
+    <div class="overflow-x-auto p-[10px] mx-2 mt-4">
+        <table class="table">
+            <!-- head -->
+            <thead>
+                <tr class="text-black">
+                    <th class="w-20">Concepto</th>
+                    <th>Descripcion</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- row 1 -->
+                <tr>
+                    <th>001</th>
+                    <td>Salario básico</td>
+                    <td>4.000.000</td>
+                </tr>
+                <tr>
+                    <th>501</th>
+                    <td>Aporte salud</td>
+                    <td>-160.000</td>
+                </tr>
+                <tr>
+                    <th>502</th>
+                    <td>Aporte pensión</td>
+                    <td>-160.000</td>
+                </tr>
+                <tr class="bg-base-200">
+                    <td class="text-end text-black font-semibold" colspan="2">
+                        Total deducciones
+                    </td>
+                    <td class="text-black">
+                        320.000
+                    </td>
+                </tr>
+                <tr class="bg-base-200">
+                    <td class="text-end text-black font-semibold" colspan="2">
+                        Total pago neto
+                    </td>
+                    <td class="text-black">
+                        3.680.000
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

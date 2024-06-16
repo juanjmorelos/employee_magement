@@ -5,3 +5,52 @@
 
 /* Importa los estilos de daisyUI */
 @import 'daisyui/dist/full.css';
+
+:root {
+    --ticket-color: #f3f3f3;
+}
+
+.ticket-border {
+    position: relative;
+    padding: 40px 8px;
+    background: var(--ticket-color)
+}
+
+.ticket-border:before, .ticket-border:after {
+    background: linear-gradient(-45deg, #ffffff 16px, transparent 0), linear-gradient(45deg, #ffffff 16px, transparent 0);
+    background-position: left-bottom;
+    background-repeat: repeat-x;
+    background-size: 10px 32px;
+    content: " ";
+    display: block;
+    position: absolute;
+    left: 0px;
+    width: 100%;
+    height: 32px;
+}
+    
+.ticket-border:before {
+    top: 0px;
+    transform: rotate(180deg); /* Rotate to flip the zigzag for the top */
+}
+        
+.ticket-border:after {
+    bottom: 0px;
+}
+.border-bottom {
+    border-bottom: 1px solid #dadada;
+}
+
+.toast-transition {
+    opacity: 0;
+    transition: opacity 300ms;
+}
+
+.toast-transition.show {
+    opacity: 1;
+}
+
+.toast-transition.hide {
+    opacity: 0;
+}
+  

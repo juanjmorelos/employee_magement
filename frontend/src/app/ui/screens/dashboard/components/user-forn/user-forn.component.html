@@ -4,15 +4,15 @@
             <label class="label">
                 <span class="label-text font-semibold">Nombre</span>
             </label>
-            <input type="text" class="input input-bordered pointer-events-none" [value]="'Juan'" 
-            readonly aria-readonly="true"/>
+            <input type="text" class="input input-bordered" [ngClass]="{'pointer-events-none': !editable}" [value]="blank ? '' :  'Juan'" 
+            [readonly]="!editable" aria-readonly="true"/>
         </div>
         <div class="form-control">
             <label class="label">
                 <span class="label-text font-semibold">Apellido</span>
             </label>
-            <input type="text" class="input input-bordered pointer-events-none" [value]="'Morelos Acosta'" 
-            readonly aria-readonly="true"/>
+            <input type="text" class="input input-bordered" [ngClass]="{'pointer-events-none': !editable}" [value]="blank ? '' : 'Morelos Acosta'" 
+            [readonly]="!editable" aria-readonly="true"/>
         </div>
     </div>
     <div class="grid grid-cols-1 gap-4 mt-4">
@@ -20,8 +20,9 @@
             <label class="label">
                 <span class="label-text font-semibold">Email personal</span>
             </label>
-            <input type="text" class="input input-bordered pointer-events-none" [value]="'juanjmorelos13@gmail.com'" 
-            readonly aria-readonly="true"/>
+            <input type="text" class="input input-bordered" [ngClass]="{'pointer-events-none': !editable}" [value]="blank ? '' : 'juanjmorelos13@gmail.com'" 
+            [readonly]="!editable" aria-readonly="true"/>
         </div>
     </div>
+    <ng-content></ng-content>
 </div>

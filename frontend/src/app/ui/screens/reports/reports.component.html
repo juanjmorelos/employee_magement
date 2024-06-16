@@ -1,0 +1,58 @@
+<div class="p-4">
+    <div class="bg-base-100 rounded-2xl shadow-lg pr-3 pl-3 pt-4 pb-4 mt-4">
+        <a class="btn btn-ghost text-xl pointer-events-none mb-4">Comprobante de nómina
+            @if(id != "") {
+                <span>- Juan Morelos Acosta</span>
+            }
+        </a>
+        <div class="flex content-start gap-4 items-end">
+            <label class="form-control w-full max-w-xs">
+                <div class="label">
+                    <span class="label-text">Mes</span>
+                </div>
+                <select class="select select-bordered" [(ngModel)]="month" (change)="resetReport()">
+                    <option disabled selected value="">Seleccionar mes</option>
+                    <option value="1">Enero</option>
+                    <option value="2">Frebrero</option>
+                    <option value="3">Marzo</option>
+                    <option value="4">Abril</option>
+                    <option value="5">Mayo</option>
+                    <option value="6">Junio</option>
+                </select>
+            </label>
+            <label class="form-control w-full max-w-xs">
+                <div class="label">
+                    <span class="label-text">Año</span>
+                </div>
+                <select class="select select-bordered" [(ngModel)]="year" (change)="resetReport()">
+                    <option disabled selected value="">Seleccionar año</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                    <option value="2022">2022</option>
+                    <option value="2020">2020</option>
+                    <option value="2019">2019</option>
+                    <option value="2018">2018</option>
+                </select>
+            </label>
+            <button class="btn btn-square btn-primary" (click)="searchPayment()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                </svg>
+            </button>
+        </div>
+    </div>
+    @if (showReport) {
+        <div class="mt-4 mb-4">
+            <report-detail [month]="month" [year]="year" [month_letter]="getMonth(month)"></report-detail>
+        </div>
+    }
+</div>
+
+
+<div class="toast toast-bottom toast-end toast-transition" [ngClass]="{'show': showWarning, 'hide': !showWarning && warningDismissed}">
+    <div class="alert alert-warning">
+        <span>Por favor seleccione mes y año</span>
+    </div>
+</div>

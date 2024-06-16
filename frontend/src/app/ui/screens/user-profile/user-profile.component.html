@@ -1,0 +1,60 @@
+<div class="flex justify-center items-center h-dvh">
+    <div class="card w-5/12 bg-base-100 shadow-xl">
+        <div class="card-body items-start text-center">
+            <h2 class="card-title text-start mb-3">Actualizar datos de usuario</h2>
+            <div class="form-control w-full">
+                <label class="label">
+                    <span class="label-text font-semibold">Correo personal</span>
+                </label>
+                <input type="text" class="input input-bordered" value="juanjmorelos13@gmail.com" />
+            </div>
+            <div class="form-control w-full">
+                <label class="label">
+                    <span class="label-text font-semibold">Usuario</span>
+                </label>
+                <input type="text" class="input input-bordered" value="juanjmorelos" />
+            </div>
+            <button class="btn btn-secondary w-full mt-3" onclick="my_modal_2.showModal()">Cambiar contraseña</button>
+            <div class="card-actions pt-8 w-full">
+                <button class="btn btn-primary w-full">Guardar cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<dialog id="my_modal_2" class="modal modal-bottom sm:modal-middle" role="dialog">
+    <div class="modal-box">
+        <form method="dialog">
+            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        </form>
+        <h3 class="font-bold text-lg">Cambiar contraseña</h3>
+        <div class="py-4">
+            <div class="form-control w-full">
+                <label class="label">
+                    <span class="label-text font-semibold">Nueva contraseña</span>
+                </label>
+                <input type="password" class="input input-bordered" [(ngModel)]="password"/>
+            </div>
+            <div class="form-control w-full">
+                <label class="label">
+                    <span class="label-text font-semibold">Confirmar nueva contraseña</span>
+                </label>
+                <input type="password" class="input input-bordered" [(ngModel)]="confirmPassword"/>
+            </div>
+        </div>
+        <div class="modal-action">
+            <form method="dialog">
+                <button class="btn btn-primary" (click)="changePassword()">Cambiar contraseña</button>
+            </form>
+            <form method="dialog">
+                <button class="btn btn-secondary">Cancelar</button>
+            </form>
+        </div>
+    </div>
+</dialog>
+
+<div class="toast toast-bottom toast-end toast-transition" [ngClass]="{'show': showWarning, 'hide': !showWarning && warningDismissed}">
+    <div class="alert" [ngClass]="{'alert-warning': typeWarning(), 'alert-success': typeSuccess()}">
+        <span>{{toastMessage}}</span>
+    </div>
+</div>

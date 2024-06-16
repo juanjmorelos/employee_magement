@@ -17,7 +17,17 @@
     <div class="stats shadow-xl col-span-3 w-full h-full">
         <div class="stat place-items-center w-full">
             <div class="text-2xl font-semibold text-wrap">{{title}}</div>
-            <div class="stat-title text-wrap">{{value}}</div>
+            @if (editable) {
+                <input type="text" class="stat-title text-wrap input input-ghost text-center" [value]="value">
+                <!-- <select class="select select-ghost w-full max-w-xs stat-title text-wrap" [(ngModel)]="value">
+                    <option disabled selected >Pick the best JS framework</option>
+                    <option>Svelte</option>
+                    <option>Vue</option>
+                    <option>React</option>
+                </select> -->
+            } @else {
+                <div class="stat-title text-wrap">{{value}}</div>
+            }
         </div>
     </div>
 }

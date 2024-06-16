@@ -1,12 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'user-forn',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './user-forn.component.html',
   styleUrl: './user-forn.component.css'
 })
 export class UserFornComponent {
-
+  @Input()
+  editable: Boolean = false
+  @Input()
+  blank: Boolean = false
 }

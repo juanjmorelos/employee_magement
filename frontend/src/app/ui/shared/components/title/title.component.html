@@ -1,0 +1,12 @@
+<div class="flex pl-3 pr-3 pt-2 pb-2 bg-base-100 rounded-2xl shadow-lg">
+    <div class="flex-1">
+        <a class="btn btn-ghost text-xl pointer-events-none">{{title}}</a>
+    </div>
+    @if (searchbar) {
+        <div class="flex-none gap-2">
+            <div class="form-control">
+                <input type="text" placeholder="Buscar" class="input input-bordered w-24 md:w-auto" />
+            </div>
+        </div>
+    }
+</div>
