@@ -1,6 +1,7 @@
 # See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
 # Ignorar archivos de caché de Python
 __pycache__/
+*/__pycache__/
 *.py[cod]
 
 # Ignorar archivos de configuración del entorno virtual
