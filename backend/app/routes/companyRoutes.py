@@ -2,9 +2,10 @@ from flask import Blueprint, request, jsonify, current_app
 import os
 from app import app, mysql
 from datetime import datetime
-
+from app.routes.utils.utils import Utils
 
 company = Blueprint('company', __name__)
+utils = Utils()
 
 @company.route('/updateCompanySettings', methods=['POST'])
 def addCompany():
@@ -57,7 +58,4 @@ def addCompany():
                 'message': 'El usuario no existe'
             }), 404
     except Exception as e:
-        return jsonify({
-            'success': False,
-            'message': "Ocurrio un error al actualizar: " + str(e)
-        }), 500
+        return utils.sendErrorMessage(e)

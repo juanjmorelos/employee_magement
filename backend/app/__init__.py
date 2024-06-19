@@ -15,7 +15,7 @@ mysql = mysql.connector.connect(
     password=app.config['MYSQL_PASSWORD'],
     database=app.config['MYSQL_DB'],
     host=app.config['MYSQL_HOST'],
-    port=8080
+    port=3306 #cambiar cuando sea necesario
 )
 
 def create_app():
@@ -32,8 +32,10 @@ def create_app():
     # Registrar rutas
     from .routes.companyRoutes import company
     from .routes.socialSecurityRoutes import socialSecurity
+    from .routes.userRoutes import users
     
     app.register_blueprint(company)
     app.register_blueprint(socialSecurity)
+    app.register_blueprint(users)
 
     return app

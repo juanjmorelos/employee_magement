@@ -1,8 +1,10 @@
 from flask import Blueprint, request, jsonify, current_app
 import os
 from app import app, mysql
+from app.routes.utils.utils import Utils
 
 socialSecurity = Blueprint('socialSecurity', __name__)
+utils = Utils()
 
 @socialSecurity.route('/addArl', methods=['POST'])
 def addArl():
@@ -26,7 +28,4 @@ def addArl():
             'message': "Se añadio correctamente"
         })
     except Exception as e:
-        return jsonify({
-            'success': False,
-            'message': "Ocurrio un error al insertar: " + str(e)
-        }), 500
+        return utils.sendErrorMessage(e)
