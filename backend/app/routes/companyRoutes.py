@@ -5,7 +5,6 @@ from datetime import datetime
 from app.routes.utils.utils import Utils
 
 company = Blueprint('company', __name__)
-utils = Utils()
 
 @company.route('/updateCompanySettings', methods=['POST'])
 def addCompany():
@@ -58,4 +57,4 @@ def addCompany():
                 'message': 'El usuario no existe'
             }), 404
     except Exception as e:
-        return utils.sendErrorMessage(e)
+        return Utils.sendErrorMessage(e)

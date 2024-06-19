@@ -4,7 +4,6 @@ from app import app, mysql
 from app.routes.utils.utils import Utils
 
 socialSecurity = Blueprint('socialSecurity', __name__)
-utils = Utils()
 
 @socialSecurity.route('/addArl', methods=['POST'])
 def addArl():
@@ -28,4 +27,4 @@ def addArl():
             'message': "Se añadio correctamente"
         })
     except Exception as e:
-        return utils.sendErrorMessage(e)
+        return Utils.sendErrorMessage(e)
