@@ -1,4 +1,14 @@
 # See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+# Ignorar archivos de caché de Python
+__pycache__/
+*.py[cod]
+
+# Ignorar archivos de configuración del entorno virtual
+.env/
+.venv/
+ENV/
+env/
+venv/
 
 # Compiled output
 /dist
