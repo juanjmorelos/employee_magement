@@ -1,22 +1,20 @@
 from flask import Flask
 import mysql.connector
 import os
+from dotenv import load_dotenv
 
-# Configuración de la aplicación Flask
+load_dotenv()
+
 app = Flask(__name__)
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'employee_management'
-app.config['MYSQL_HOST'] = 'localhost'
-
-# Inicialización de la conexión MySQL
 mysql = mysql.connector.connect(
-    user=app.config['MYSQL_USER'],
-    password=app.config['MYSQL_PASSWORD'],
-    database=app.config['MYSQL_DB'],
-    host=app.config['MYSQL_HOST'],
-    port=3306 #cambiar cuando sea necesario
+    user=os.environ.get('MYSQL_USER'),
+    password=os.environ.get('MYSQL_PASSWORD'),
+    database=os.environ.get('MYSQL_DB_NAME'),
+    host=os.environ.get('MYSQL_HOST'),
+    port=int(os.environ.get('MYSQL_PORT'))  # Asegurarse de que el puerto sea un entero
 )
+
+print(f'El usuario es: {str(os.environ.get('MYSQL_USER'))}')
 
 def create_app():
     app = Flask(__name__)
