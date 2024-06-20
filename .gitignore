@@ -7,9 +7,14 @@ __pycache__/
 # Ignorar archivos de configuración del entorno virtual
 .env/
 .venv/
+*/.env/
+*/.venv/
 ENV/
 env/
 venv/
+*/ENV/
+*/env/
+*/venv/
 
 # Compiled output
 /dist
