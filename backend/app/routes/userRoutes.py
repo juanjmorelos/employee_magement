@@ -19,7 +19,37 @@ def loginUser():
         plain_password = data.get("password")
 
         cursor = mysql.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM users WHERE username = %s", (user,))
+        cursor.execute('''
+            SELECT 
+                emp.id, 
+                emp.name, 
+                emp.password,
+                emp.lastName, 
+                emp.identifier, 
+                emp.username, 
+                emp.email, 
+                emp.admissionDate, 
+                emp.retirementDate, 
+                emp.salary, 
+                emp.birthdate, 
+                c.cesatiasName as cesantias, 
+                p.pensionName as pension, 
+                a.arlName as arlInsurance, 
+                hi.insuranceName AS healthyInsuranceName,  -- Nombre del seguro médico obtenido del JOIN
+                emp.isActive, 
+                pos.positionName AS positionName,  -- Nombre del cargo obtenido del JOIN
+                emp.privileges, 
+                comp.name AS companyName  -- Nombre de la empresa obtenido del JOIN
+            FROM 
+                users AS emp
+            LEFT JOIN healthyInsurance AS hi ON emp.healthyInsurance = hi.id
+            LEFT JOIN position AS pos ON emp.position = pos.id
+            LEFT JOIN companysettings AS comp ON emp.company = comp.id
+            LEFT JOIN arlinsurance a on a.id = emp.arlInsurance
+            LEFT JOIN pension p on p.id = emp.pension
+            LEFT JOIN cesantias c on c.id = emp.cesantias
+            WHERE emp.username = %s;
+        ''', (user,))
         result = cursor.fetchone()
 
         if result:
@@ -27,12 +57,16 @@ def loginUser():
             result.pop('password', None)
 
             if Utils.checkPassword(stored_password, plain_password):
+                if result['isActive'] == 1:
+                    return jsonify({
+                        "success": True,
+                        "message": "Login correcto",
+                        "data": result
+                    })
                 return jsonify({
-                    "success": True,
-                    "message": "Login correcto",
-                    "data": result
+                    "success": False,
+                    "message": "Usuario inactivo o no pertenece a la compañía",
                 })
-                
             return jsonify({
                 "success": False,
                 "message": "Login fallido"
@@ -54,17 +88,17 @@ def registerRoute():
         expected_fields = ["transactUser","username", "password", "name", "lastName", "email", 
                         "birthdate", "privileges", "salary", "company", "position",
                         "pension", "cesantias", "arlInsurance", "healthyInsurance", "identifier"]
-        emptyFields = []
+        utyFields = []
         
         for field in expected_fields:
             if field not in data:
-                emptyFields.append(field)
+                utyFields.append(field)
         
-        if len(emptyFields) > 0:
+        if len(utyFields) > 0:
             return jsonify({
                     "success": False,
                     "message": "Campos faltantes",
-                    "emptyFields": emptyFields
+                    "utyFields": utyFields
                 }), 400
         
         transactUser = data.get("transactUser")
@@ -74,10 +108,10 @@ def registerRoute():
 
         if result:
             privilegies = result['privileges']
-            if privilegies == 3:
+            if privilegies == 3 or result['isActive'] == 0:
                 return jsonify({
                     "success": False,
-                    "message": "Permisos insuficientes para realizar esta transaccion"
+                    "message": "Permisos insuficientes para realizar esta transacción"
                 }), 403
             else:        
                 username = data.get("username")
@@ -171,7 +205,7 @@ def registerRoute():
                 }), 400
         return jsonify({
                     "success": False,
-                    "message": "Permisos insuficientes para realizar esta transaccion"
+                    "message": "Permisos insuficientes para realizar esta transacción"
                 }), 403
     except Exception as e:
         return Utils.sendErrorMessage(e, "Ocurrio un error al registrar")
@@ -183,17 +217,17 @@ def updateUser():
         expected_fields = ["transactUser","id","name", "lastName", "email", 
                        "birthdate", "isActive", "privileges", "salary", "company", "position",
                        "pension", "cesantias", "arlInsurance", "healthyInsurance", "identifier"]
-        emptyFields = []
+        utyFields = []
             
         for field in expected_fields:
             if field not in data:
-                emptyFields.append(field)
+                utyFields.append(field)
         
-        if len(emptyFields) > 0:
+        if len(utyFields) > 0:
             return jsonify({
                 "success": False,
                 "message": "Campos faltantes",
-                "emptyFields": emptyFields
+                "utyFields": utyFields
             }), 400
         
         transactUser = data.get("transactUser")
@@ -203,10 +237,10 @@ def updateUser():
 
         if result:
             privilegies = result['privileges']
-            if privilegies == 3:
+            if privilegies == 3 or result['isActive'] == 0:
                 return jsonify({
                     "success": False,
-                    "message": "Permisos insuficientes para realizar esta transaccion"
+                    "message": "Permisos insuficientes para realizar esta transacción"
                 }), 403
             else:
                 id = data.get("id")
@@ -267,7 +301,7 @@ def updateUser():
         else:
             return jsonify({
                 "success": False,
-                "message": "Permisos insuficientes para realizar esta transaccion"
+                "message": "Permisos insuficientes para realizar esta transacción"
             }), 403
     except Exception as e:
         Utils.sendErrorMessage(e, "Error al actualizar usuario")
@@ -289,10 +323,10 @@ def dissmissUser():
 
         if result:
             privilegies = result['privileges']
-            if privilegies == 3:
+            if privilegies == 3 or result['isActive'] == 0:
                 return jsonify({
                     "success": False,
-                    "message": "Permisos insuficientes para realizar esta transaccion"
+                    "message": "Permisos insuficientes para realizar esta transacción"
                 }), 403
             else:
                 userId = data.get("idUser")
@@ -317,7 +351,116 @@ def dissmissUser():
                 }), 400
         return jsonify({
             "success": False,
-            "message": "Permisos insuficientes para realizar esta transaccion"
+            "message": "Permisos insuficientes para realizar esta transacción"
         }), 403
     except Exception as e:
         return Utils.sendErrorMessage(e, "Error al despedir usuario")
+
+@users.route("/allUsers/<transactUser>", methods=['GET'])
+def getAllUsers(transactUser):
+    try:
+        cursor1 = mysql.cursor(dictionary=True) 
+        cursor1.execute("SELECT * FROM users WHERE id = %s", (transactUser,))
+        result = cursor1.fetchone() 
+        
+        if result:
+            privilegies = result['privileges']
+            if privilegies == 3 or result['isActive'] == 0:
+                return jsonify({
+                    "success": False,
+                    "message": "Permisos insuficientes para realizar esta transacción"
+                }), 403
+            else:
+                cursor = mysql.cursor(dictionary=True)
+                cursor.execute('''
+                    SELECT 
+                        u.id, 
+                        u.name, 
+                        u.lastName, 
+                        u.identifier, 
+                        u.retirementDate, 
+                        pos.positionName AS positionName
+                    FROM 
+                        users AS u
+                    LEFT JOIN position AS pos ON u.position = pos.id
+                    WHERE
+                        u.id != %s;
+                ''', (transactUser,))
+                results = cursor.fetchall()
+
+                return jsonify({
+                    "success": False,
+                    "message": "Trayendo usuarios",
+                    "length": len(results),
+                    "data": results
+                }) 
+        else:
+            return jsonify({
+                "success": False,
+                "message": "Permisos insuficientes para realizar esta transacción"
+            }), 403
+    except Exception as e:
+        return Utils.sendErrorMessage(e, "Ocurrio un error al consultar los usuarios")
+    
+@users.route("/getUserDetail/<body>")
+def function(body):
+    try:
+        data = body.split(";")
+        transactUser = data[0]
+        userId = data[1]
+        cursor1 = mysql.cursor(dictionary=True) 
+        cursor1.execute("SELECT * FROM users WHERE id = %s", (transactUser,))
+        result = cursor1.fetchone() 
+        
+        if result:
+            privilegies = result['privileges']
+            if privilegies == 3 or result['isActive'] == 0:
+                return jsonify({
+                    "success": False,
+                    "message": "Permisos insuficientes para realizar esta transacción"
+                }), 403
+            else:
+                cursor1 = mysql.cursor(dictionary=True) 
+                cursor1.execute('''
+                    SELECT 
+                        u.id, 
+                        u.name, 
+                        u.lastName, 
+                        u.identifier, 
+                        u.username, 
+                        u.email, 
+                        u.admissionDate, 
+                        u.retirementDate, 
+                        u.salary, 
+                        u.birthdate, 
+                        u.cesantias, 
+                        u.pension, 
+                        u.arlInsurance, 
+                        u.healthyInsurance,  
+                        u.password, 
+                        u.isActive, 
+                        pos.positionName AS positionName,  
+                        u.privileges
+                    FROM 
+                        users AS u
+                    LEFT JOIN position AS pos ON u.position = pos.id
+                    WHERE u.id = %s;
+                ''', (userId,))
+                result = cursor1.fetchone() 
+                if result:
+                    return jsonify({
+                        "success": True,
+                        "message": "Datos de usuario obtenidos",
+                        "data": result
+                    })
+                return jsonify({
+                    "success": False,
+                    "message": "Usuario no existe"
+                })
+        else:
+            return jsonify({
+                "success": False,
+                "message": "Permisos insuficientes para realizar esta transacción"
+            }), 403
+    except Exception as e:
+        return Utils.sendErrorMessage(e, "Ocurrio un error al consultar detalle de usuario")

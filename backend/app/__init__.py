@@ -14,8 +14,6 @@ mysql = mysql.connector.connect(
     port=int(os.environ.get('MYSQL_PORT'))  # Asegurarse de que el puerto sea un entero
 )
 
-print(f'El usuario es: {str(os.environ.get('MYSQL_USER'))}')
-
 def create_app():
     app = Flask(__name__)
     
