@@ -4,14 +4,14 @@
             <label class="label">
                 <span class="label-text font-semibold">Nombre</span>
             </label>
-            <input type="text" class="input input-bordered" [ngClass]="{'pointer-events-none': !editable}" [value]="blank ? '' :  'Juan'" 
+            <input type="text" class="input input-bordered" [ngClass]="{'pointer-events-none': !editable}" [value]="blank ? '' :  user.name" 
             [readonly]="!editable" aria-readonly="true"/>
         </div>
         <div class="form-control">
             <label class="label">
                 <span class="label-text font-semibold">Apellido</span>
             </label>
-            <input type="text" class="input input-bordered" [ngClass]="{'pointer-events-none': !editable}" [value]="blank ? '' : 'Morelos Acosta'" 
+            <input type="text" class="input input-bordered" [ngClass]="{'pointer-events-none': !editable}" [value]="blank ? '' : user.lastName" 
             [readonly]="!editable" aria-readonly="true"/>
         </div>
     </div>
@@ -20,7 +20,7 @@
             <label class="label">
                 <span class="label-text font-semibold">Email personal</span>
             </label>
-            <input type="text" class="input input-bordered" [ngClass]="{'pointer-events-none': !editable}" [value]="blank ? '' : 'juanjmorelos13@gmail.com'" 
+            <input type="text" class="input input-bordered" [ngClass]="{'pointer-events-none': !editable}" [value]="blank ? '' : user.email" 
             [readonly]="!editable" aria-readonly="true"/>
         </div>
     </div>

@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { UserData } from '../../../../../domain/models/entities/user.entitie';
 
 
 @Component({
@@ -14,4 +15,6 @@ export class UserFornComponent {
   editable: Boolean = false
   @Input()
   blank: Boolean = false
+  @Input()
+  user!: UserData
 }

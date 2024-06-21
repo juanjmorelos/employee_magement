@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FooterComponent } from "../../../shared/components/footer/footer.component";
 import { Router } from '@angular/router';
 import { AlertDialog } from '../../../uiService/dialog.service';
 import { DialogComponent } from '../../../shared/components/dialog/dialog.component';
+import { LoginUseCaseService } from '../../../../service/core/use-cases/login.use-case.service';
+import { serviceFetcher } from '../../../../service/adapters/service.adapter';
 
 
 
@@ -15,14 +17,22 @@ import { DialogComponent } from '../../../shared/components/dialog/dialog.compon
     styleUrl: './login-screen.component.css',
     imports: [FormsModule, CommonModule, FooterComponent, DialogComponent]
 })
-export class LoginScreenComponent {
+export class LoginScreenComponent implements OnInit{
   username: string = ""
   password: string = ""
   emptyFields: string[] = []
+  loginService = new LoginUseCaseService(serviceFetcher)
 
   constructor(private routes: Router, private alertDialog: AlertDialog) {}
+  
+  ngOnInit(): void {
+    const userData = localStorage.getItem('userData');
+    if (userData) {
+      this.routes.navigate(['home/dashboard']);
+    }
+  }
 
-  login() {
+  async login() {
     this.emptyFields = []
     if(this.username == "") {
       this.emptyFields.push("username")
@@ -32,14 +42,16 @@ export class LoginScreenComponent {
     }
     //TODO: Realizar llamado login
     if(this.emptyFields.length === 0) {
-      if(this.username === "admin" && this.password === "admin") {
+      const response = await this.loginService.loginUser(this.username, this.password)
+      if(response.success) {
+        localStorage.setItem('userData', JSON.stringify(response.data))
         this.routes.navigate(["home"])
       } else {
         this.alertDialog.showDialog({
-          title: 'Oops',
-          message: 'Usuario o contraseña incorrectos, por favor verifica e intenta nuevamente',
-          buttonText: 'Aceptar'
-        });
+          title: "Inicio de sesión",
+          message: response.message,
+          buttonText: "Aceptar"
+        })
       }
     }
   }

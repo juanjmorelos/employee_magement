@@ -65,17 +65,17 @@ def loginUser():
                     })
                 return jsonify({
                     "success": False,
-                    "message": "Usuario inactivo o no pertenece a la compañía",
+                    "message": "El usuario se encuentra inactivo o no pertenece a la compañía",
                 })
             return jsonify({
                 "success": False,
-                "message": "Login fallido"
-            }), 400
+                "message": "Usuario o contraseña incorrecta por favor verifique e intente nuevamente"
+            })
         
         return jsonify({
             "success": False,
-            "message": "Login fallido",
-        }), 400
+            "message": "Usuario o contraseña incorrecta por favor verifique e intente nuevamente",
+        })
     
     except Exception as e:
         return Utils.sendErrorMessage(e, "Error al intentar iniciar sesión")
@@ -389,7 +389,7 @@ def getAllUsers(transactUser):
                 results = cursor.fetchall()
 
                 return jsonify({
-                    "success": False,
+                    "success": True,
                     "message": "Trayendo usuarios",
                     "length": len(results),
                     "data": results
@@ -402,10 +402,10 @@ def getAllUsers(transactUser):
     except Exception as e:
         return Utils.sendErrorMessage(e, "Ocurrio un error al consultar los usuarios")
     
-@users.route("/getUserDetail/<body>")
+@users.route("/getUserDetail/<body>", methods=['GET'])
 def function(body):
     try:
-        data = body.split(";")
+        data = body.split(":")
         transactUser = data[0]
         userId = data[1]
         cursor1 = mysql.cursor(dictionary=True) 
@@ -462,5 +462,110 @@ def function(body):
                 "success": False,
                 "message": "Permisos insuficientes para realizar esta transacción"
             }), 403
+    except Exception as e:
+        return Utils.sendErrorMessage(e, "Ocurrio un error al consultar detalle de usuario")
+    
+@users.route("/userPayment/<body>", methods=["GET"])
+def getUserPayment(body):
+    try:
+        data = body.split(":")
+        transactUser = data[0]
+        idUser = data[1]
+        isSameUser = (transactUser == idUser)
+        
+        cursor1 = mysql.cursor(dictionary=True)        
+        cursor1.execute('''SELECT 
+                        u.id, 
+                        u.name, 
+                        u.lastName, 
+                        u.identifier, 
+                        u.email, 
+                        u.salary, 
+                        u.company,
+                        pos.positionName AS positionName,  
+                        u.account,
+                        u.isActive
+                    FROM 
+                        users AS u
+                    LEFT JOIN position AS pos ON u.position = pos.id
+                    WHERE u.id = %s''', (transactUser,))
+        result = cursor1.fetchone() 
+
+
+        if result:
+            if result['isActive'] == 0:
+                return jsonify({
+                    "success": False,
+                    "message": "Permisos insuficientes para realizar esta transacción"
+                }), 403
+            else:
+                cursor2 = mysql.cursor(dictionary=True)        
+                cursor2.execute('''SELECT 
+                        u.id, 
+                        u.name, 
+                        u.lastName, 
+                        u.identifier, 
+                        u.email, 
+                        u.salary, 
+                        u.company,
+                        pos.positionName AS positionName,  
+                        u.account,
+                        u.privileges,
+                        u.isActive
+                    FROM 
+                        users AS u
+                    LEFT JOIN position AS pos ON u.position = pos.id
+                    WHERE u.id = %s''', (idUser,))
+                result2 = cursor2.fetchone() 
+
+                if not result2:
+                    return jsonify({
+                        "success": False,
+                        "message": "Usuario no existe"
+                    }), 400
+
+                mainSalary = result2['salary']
+                netSalary = mainSalary * 0.92
+                contributions = mainSalary * 0.08
+                healthValue = contributions/2
+                pensionValue = contributions/2
+                minSalary = 1300000 * 2
+                transportContribution = 162000
+                salaryData = {
+                    "netSalary": netSalary,
+                    "discount": contributions,
+                    "healthValue": healthValue,
+                    "pensionValue": pensionValue,
+                    "transportContribution": transportContribution
+                }
+                if mainSalary < minSalary:
+                    mainSalary = mainSalary + transportContribution
+                    salaryData = {
+                            "netSalary": netSalary,
+                            "discount": contributions,
+                            "healthValue": healthValue,
+                            "pensionValue": pensionValue,
+                            "transportContribution": transportContribution
+                        }
+
+
+                cursor3 = mysql.cursor(dictionary=True) 
+                cursor3.execute('SELECT * FROM companySettings where id = %s', (result2['company'],))
+                company = cursor3.fetchone()
+
+                return jsonify({
+                    "success": True,
+                    "message": "Salario obtenido",
+                    "data": {
+                        "user": result2,
+                        "salaryData": salaryData,
+                        "company": company
+                    }
+                })
+        else:
+            return jsonify({
+                "success": False,
+                "message": "Usuario no existe"
+            }), 400
     except Exception as e:
         return Utils.sendErrorMessage(e, "Ocurrio un error al consultar detalle de usuario")

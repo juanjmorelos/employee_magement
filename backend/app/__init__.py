@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 import mysql.connector
 import os
 from dotenv import load_dotenv
@@ -17,6 +18,7 @@ mysql = mysql.connector.connect(
 def create_app():
     app = Flask(__name__)
     
+    CORS(app)
     # Configuraciones
     basedir = os.path.abspath(os.path.dirname(__file__))
     project_dir = os.path.dirname(basedir)

@@ -1,10 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { employee } from '../../../domain/models/employee.interface';
 import { CommonModule } from '@angular/common';
 import { InfoCardComponent } from '../dashboard/components/info-card/info-card.component';
 import { EmployeesStaticsComponent } from './components/employees-statics/employees-statics.component';
 import { RouterModule } from '@angular/router';
 import { TitleComponent } from "../../shared/components/title/title.component";
+import { UserListUseCaseService } from '../../../service/core/use-cases/user-list.use-case.service';
+import { serviceFetcher } from '../../../service/adapters/service.adapter';
+import { UserData } from '../../../domain/models/entities/user.entitie';
+import { Users } from '../../../domain/models/entities/user-list.entitie';
 
 @Component({
     selector: 'employee-list',
@@ -13,41 +17,33 @@ import { TitleComponent } from "../../shared/components/title/title.component";
     styleUrl: './employee-list.component.css',
     imports: [CommonModule, InfoCardComponent, EmployeesStaticsComponent, RouterModule, TitleComponent]
 })
-export class EmployeeListComponent {
-  employeeList: employee[] = [
-    {
-      id: 1,
-      name: 'Juan',
-      lastName: 'Morelos Acosta',
-      identifier: 1065013739,
-      position: 'Desarrollador de aplicaciones junior'
-    },
-    {
-      id: 2,
-      name: 'Pedro Enrique',
-      lastName: 'Perez Pereira',
-      identifier: 65123989,
-      position: 'Desarrollador web'
-    },
-    {
-      id: 3,
-      name: 'Danay',
-      lastName: 'Sarmiento Castro',
-      identifier: 35765532,
-      position: 'Analista QA',
-      retirementDate: new Date('23/01/2023')
-    },
-    {
-      id: 4,
-      name: 'Andrés',
-      lastName: 'Parra Castillo',
-      identifier: 89765432,
-      position: 'Analista QA'
-    },
-  ]
+export class EmployeeListComponent implements OnInit{
+
+  userListService = new UserListUseCaseService(serviceFetcher)
+  employeeList: Users[] = []
+  user!: UserData
 
 
-  getIsActive(employee: employee) {
-    return employee.retirementDate === undefined ? 'Activo' : 'Retirado'
+  constructor() {
+    
+  }
+
+  async ngOnInit(): Promise<void> {
+    const userData = localStorage.getItem('userData');
+    this.user = JSON.parse(userData!)
+    this.getUserList()
+  }
+
+  async getUserList() {
+    const response = await this.userListService.getUserList(this.user.id.toString())
+    if(response.success) {
+      this.employeeList = response.data
+      console.log("Si hay usuarios")
+    }
+  }
+
+
+  getIsActive(retirementDate: string | null) {
+    return retirementDate === null ? 'Activo' : 'Retirado'
   }
 }
