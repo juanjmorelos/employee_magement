@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { employee } from '../../../../../domain/models/employee.interface';
-import { Users } from '../../../../../domain/models/entities/user-list.entitie';
+import { UsersList } from '../../../../../domain/models/entities/user-list.entitie';
 
 @Component({
   selector: 'employees-statics',
@@ -11,7 +11,7 @@ import { Users } from '../../../../../domain/models/entities/user-list.entitie';
 })
 export class EmployeesStaticsComponent {
   @Input({ required: true })
-  employeeList!: Users[]
+  employeeList!: UsersList[]
 
   getActiveEmployees() {
     return this.employeeList.filter(employee => employee.retirementDate === null).length

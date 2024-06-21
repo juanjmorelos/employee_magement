@@ -1,11 +1,11 @@
-export interface UsersResponse {
-    data:    Users[];
+export interface UserListResponse {
+    data:    UsersList[];
     length:  number;
     message: string;
     success: boolean;
 }
 
-export interface Users {
+export interface UsersList {
     id:             number;
     identifier:     number;
     lastName:       string;

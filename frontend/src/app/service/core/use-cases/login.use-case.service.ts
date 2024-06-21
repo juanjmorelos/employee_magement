@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpAdapter } from '../../adapters/http/http.adapter';
-import { User } from '../../../domain/models/entities/user.entitie';
+import { LoginUserResponse } from '../../../domain/models/entities/user.entitie';
 
 @Injectable({providedIn: 'root'})
 export class LoginUseCaseService {
     constructor(private fetcher: HttpAdapter) { }
     
-    async loginUser(user: string, password: string): Promise<User> {
+    async loginUser(user: string, password: string): Promise<LoginUserResponse> {
         try {
-            const userResult = await this.fetcher.post<User>('/login', {
+            const userResult = await this.fetcher.post<LoginUserResponse>('/login', {
                 user,
                 password
             })

@@ -4,15 +4,25 @@
             <label class="label">
                 <span class="label-text font-semibold">Nombre</span>
             </label>
-            <input type="text" class="input input-bordered" [ngClass]="{'pointer-events-none': !editable}" [value]="blank ? '' :  user.name" 
-            [readonly]="!editable" aria-readonly="true"/>
+            @if(user != undefined) {
+                <input type="text" class="input input-bordered" [ngClass]="{'pointer-events-none': !editable}" [value]="blank ? '' :  user!.name" 
+                [readonly]="!editable" aria-readonly="true"/>
+            } @else if(userDetail != undefined){
+                <input type="text" class="input input-bordered" [ngClass]="{'pointer-events-none': !editable}" [value]="blank ? '' :  userDetail!.name" 
+                [readonly]="!editable" aria-readonly="true"/>
+            }
         </div>
         <div class="form-control">
             <label class="label">
                 <span class="label-text font-semibold">Apellido</span>
             </label>
-            <input type="text" class="input input-bordered" [ngClass]="{'pointer-events-none': !editable}" [value]="blank ? '' : user.lastName" 
-            [readonly]="!editable" aria-readonly="true"/>
+            @if(user != undefined) {
+                <input type="text" class="input input-bordered" [ngClass]="{'pointer-events-none': !editable}" [value]="blank ? '' : user!.lastName" 
+                [readonly]="!editable" aria-readonly="true"/>
+            }  @else if(userDetail != undefined){ 
+                <input type="text" class="input input-bordered" [ngClass]="{'pointer-events-none': !editable}" [value]="blank ? '' : userDetail!.lastName" 
+                [readonly]="!editable" aria-readonly="true"/>
+            }
         </div>
     </div>
     <div class="grid grid-cols-1 gap-4 mt-4">
@@ -20,8 +30,13 @@
             <label class="label">
                 <span class="label-text font-semibold">Email personal</span>
             </label>
-            <input type="text" class="input input-bordered" [ngClass]="{'pointer-events-none': !editable}" [value]="blank ? '' : user.email" 
-            [readonly]="!editable" aria-readonly="true"/>
+            @if(user != undefined) {
+                <input type="text" class="input input-bordered" [ngClass]="{'pointer-events-none': !editable}" [value]="blank ? '' : user!.email" 
+                [readonly]="!editable" aria-readonly="true"/>
+            } @else if(userDetail != undefined){ 
+                <input type="text" class="input input-bordered" [ngClass]="{'pointer-events-none': !editable}" [value]="blank ? '' : userDetail!.email" 
+                [readonly]="!editable" aria-readonly="true"/>
+            }
         </div>
     </div>
     <ng-content></ng-content>

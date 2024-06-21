@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserData } from '../../../../../domain/models/entities/user.entitie';
+import { UserDetail } from '../../../../../domain/models/entities/user-detail.entitie';
 
 
 @Component({
@@ -16,5 +17,11 @@ export class UserFornComponent {
   @Input()
   blank: Boolean = false
   @Input()
-  user!: UserData
+  user?: UserData
+  @Input()
+  userDetail?: UserDetail
+
+  constructor() {
+    
+  }
 }

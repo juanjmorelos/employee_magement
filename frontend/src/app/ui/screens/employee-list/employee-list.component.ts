@@ -8,7 +8,7 @@ import { TitleComponent } from "../../shared/components/title/title.component";
 import { UserListUseCaseService } from '../../../service/core/use-cases/user-list.use-case.service';
 import { serviceFetcher } from '../../../service/adapters/service.adapter';
 import { UserData } from '../../../domain/models/entities/user.entitie';
-import { Users } from '../../../domain/models/entities/user-list.entitie';
+import { UsersList } from '../../../domain/models/entities/user-list.entitie';
 
 @Component({
     selector: 'employee-list',
@@ -20,7 +20,7 @@ import { Users } from '../../../domain/models/entities/user-list.entitie';
 export class EmployeeListComponent implements OnInit{
 
   userListService = new UserListUseCaseService(serviceFetcher)
-  employeeList: Users[] = []
+  employeeList: UsersList[] = []
   user!: UserData
 
 

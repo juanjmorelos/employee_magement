@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpAdapter } from '../../adapters/http/http.adapter';
-import { UsersResponse } from '../../../domain/models/entities/user-list.entitie';
+import { UserListResponse } from '../../../domain/models/entities/user-list.entitie';
 
 @Injectable({providedIn: 'root'})
 export class UserListUseCaseService {
     constructor(private fetcher: HttpAdapter) { }
     
-    async getUserList(user: string): Promise<UsersResponse> {
+    async getUserList(user: string): Promise<UserListResponse> {
         try {
-            const userResult = await this.fetcher.get<UsersResponse>(`/allUsers/${user}`)
+            const userResult = await this.fetcher.get<UserListResponse>(`/allUsers/${user}`)
             return userResult
         } catch (error) {
             console.log(error)

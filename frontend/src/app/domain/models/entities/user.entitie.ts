@@ -1,4 +1,4 @@
-export interface User {
+export interface LoginUserResponse {
     data:    UserData;
     message: string;
     success: boolean;
