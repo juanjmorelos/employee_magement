@@ -39,7 +39,7 @@ def loginUser():
                 emp.isActive, 
                 pos.positionName AS positionName,  -- Nombre del cargo obtenido del JOIN
                 emp.privileges, 
-                comp.name AS companyName  -- Nombre de la empresa obtenido del JOIN
+                emp.company AS companyName  -- Nombre de la empresa obtenido del JOIN
             FROM 
                 users AS emp
             LEFT JOIN healthyInsurance AS hi ON emp.healthyInsurance = hi.id
@@ -87,7 +87,7 @@ def registerRoute():
         
         expected_fields = ["transactUser","username", "password", "name", "lastName", "email", 
                         "birthdate", "privileges", "salary", "company", "position",
-                        "pension", "cesantias", "arlInsurance", "healthyInsurance", "identifier"]
+                        "pension", "cesantias", "arlInsurance", "healthyInsurance", "identifier", "account"]
         utyFields = []
         
         for field in expected_fields:
@@ -129,6 +129,7 @@ def registerRoute():
                 cesantias = data.get("cesantias")
                 arlInsurance = data.get("arlInsurance")
                 healthyInsurance = data.get("healthyInsurance")
+                account = data.get("account")
 
                 if Utils.userExist(username):
                     return jsonify({
@@ -175,19 +176,19 @@ def registerRoute():
                     `cesantias`, `pension`, `arlInsurance`, 
                     `healthyInsurance`, `password`, 
                     `isActive`, `position`, `privileges`, 
-                    `company`
+                    `company`, `account`
                     ) 
                     VALUES 
                     (
-                        %s, %s, %s, %s, %s, %s, 
-                        NULL, %s, %s, %s, %s, %s, %s, 
-                        %s, 1, %s, %s, %s
+                        %s, %s, %s, %s, %s, 
+                        NULL, %s, %s, %s, %s, %s, %s, %s,
+                        1, %s, %s, %s, %s
                     )
-                ''', name, lastName, identifier, username, email, None, salary, birthdate, cesantias, pension, 
-                arlInsurance, healthyInsurance, Utils.hashPassword(password), position, privileges, company)
+                ''', (name, lastName, identifier, username, email, salary, birthdate, cesantias, pension, 
+                arlInsurance, healthyInsurance, Utils.hashPassword(password), position, privileges, company, account))
                 
                 user_id = cursor.lastrowid
-                cursor.commit()
+                mysql.commit()
 
                 cursor.execute('SELECT * FROM `users` WHERE `id` = %s', (user_id,))
                 user = cursor.fetchone()
@@ -627,3 +628,26 @@ def updateUserEmail():
         })
     except Exception as e:
         return Utils.sendErrorMessage(e, "Ocurrio un error al actualizar email")
+    
+@users.route("/updatePassword", methods=["PUT"])
+def updateUserPassword():
+    try:
+        data = request.json
+        if 'password' not in data or 'userId' not in data:
+            return jsonify({
+                "success": False,
+                "message": "Campos faltantes"
+            })
+        password = Utils.hashPassword(data.get('password'))
+        userId = data.get('userId')
+
+        cursor1 = mysql.cursor()
+        cursor1.execute("UPDATE users SET password = %s where id = %s", (password, userId))
+        mysql.commit()
+
+        return jsonify({
+            "success": True,
+            "message": "Contraseña actualizada correctamente",
+        })
+    except Exception as e:
+        return Utils.sendErrorMessage(e, "Ocurrio un error al actualizar contraseña")

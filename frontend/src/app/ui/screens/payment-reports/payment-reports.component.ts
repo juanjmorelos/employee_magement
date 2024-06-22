@@ -38,6 +38,10 @@ export class PaymentReportsComponent {
       }
     }
 
+    getActiveEmployees() {
+      return this.employeeList.filter(employee => employee.retirementDate === null);
+    }
+
     getTotalPayment() {
       if(this.employeeList.length > 0) {
         for (let i = 0; i < this.employeeList.length; i++) {

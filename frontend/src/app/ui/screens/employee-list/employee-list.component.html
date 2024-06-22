@@ -25,7 +25,7 @@
                 <tbody>
                     @for (employee of employeeList; track $index) {
                     <tr class="hover">
-                        <th>{{ $index }}</th>
+                        <th>{{ $index + 1 }}</th>
                         <td>{{ employee.identifier }}</td>
                         <td>{{ employee.name }} {{ employee.lastName }}</td>
                         <td>{{ employee.positionName }}</td>

@@ -6,9 +6,11 @@ import { ReportDetailComponent } from "./components/report-detail/report-detail.
 import { Helpers } from '../../../domain/helpers/helpers';
 import { ActivatedRoute } from '@angular/router';
 import { UserData } from '../../../domain/models/entities/user.entitie';
-import { ReportUseCaseService } from '../../../service/core/use-cases/report.use-cuse.service';
+import { ReportUseCaseService } from '../../../service/core/use-cases/report.use-case.service';
 import { serviceFetcher } from '../../../service/adapters/service.adapter';
 import { ReportData, UserReportData } from '../../../domain/models/entities/reports.entitie';
+import jsPDF from 'jspdf';
+import domtoimage from 'dom-to-image';
 
 
 @Component({
@@ -62,7 +64,34 @@ export class ReportsComponent {
     }
 
     exportPdf() {
-        
+        const element = document.getElementById('report-detail');
+
+        if (!element) {
+            console.error('Element not found!');
+            return;
+        }
+        console.log(element)
+        domtoimage.toPng(element)
+          .then((imgData) => {
+            const pdf = new jsPDF({
+              orientation: 'portrait',
+              unit: 'mm',
+              format: 'letter',
+            });
+
+            console.log(imgData)
+    
+            const imgProps = pdf.getImageProperties(imgData);
+            
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+    
+            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            pdf.save('report.pdf');
+          })
+          .catch((error) => {
+            console.error('Error generating PDF:', error);
+          });
     }
 
     showToast(duration: number = 1500) {

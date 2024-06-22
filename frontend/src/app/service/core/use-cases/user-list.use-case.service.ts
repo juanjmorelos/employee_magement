@@ -23,7 +23,7 @@ export class UserListUseCaseService {
                 transactUser,
                 idUser,
                 retiredDate
-            })
+            }, "application/json")
             return userResult
         } catch (error) {
             console.log(error)

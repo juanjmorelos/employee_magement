@@ -35,18 +35,27 @@ export class UserProfileComponent {
     this.currentEmail = this.currentUser!.email
   }
 
-  changePassword() {
+  async changePassword() {
     if(this.password != "" && this.confirmPassword != "") {
       if(this.password != this.confirmPassword) {
         this.showToast("Las contraseñas no coinciden", 3000)
         return
       }
-      this.password = ""
-      this.confirmPassword = ""
-      this.showToast("La contraseña se cambió exitosamente", 3000, ToastType.SUCCESS  )
+      await this.updatePassword(this.password)
       return
     }
     this.showToast("Por favor ingrese su nueva contraseña y confirmela", 3000)
+  }
+
+  async updatePassword(password: string) {
+    const response = await this.updateUserUseCase.updateUserPassword(this.currentUser!.id.toString(), password)
+    if(response.success) {
+      this.showToast("La contraseña se cambió exitosamente", 3000, ToastType.SUCCESS)
+      this.password = ""
+      this.confirmPassword = ""
+    } else {
+      this.showToast(response.message, 3000)
+    }
   }
 
   async updateData() {

@@ -12,7 +12,7 @@ export class CompanyUseCaseService {
 
     async updateCompanyData(formData: FormData): Promise<response> {
         try {
-            const userResult = await this.fetcher.post<response>('/updateCompanySettings', formData)
+            const userResult = await this.fetcher.post<response>('/updateCompanySettings', formData, "multipart/form-data")
             return userResult
         } catch (error) {
             console.log(error)

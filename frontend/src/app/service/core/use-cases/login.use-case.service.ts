@@ -11,7 +11,7 @@ export class LoginUseCaseService {
             const userResult = await this.fetcher.post<LoginUserResponse>('/login', {
                 user,
                 password
-            })
+            }, "application/json")
             return userResult
         } catch (error) {
             console.log(error)

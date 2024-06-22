@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { UserData } from '../../../domain/models/entities/user.entitie';
-import { ReportUseCaseService } from '../../../service/core/use-cases/report.use-cuse.service';
+import { ReportUseCaseService } from '../../../service/core/use-cases/report.use-case.service';
 import { baseUrl, serviceFetcher } from '../../../service/adapters/service.adapter';
 import { Company } from '../../../domain/models/entities/reports.entitie';
 import { CompanyUseCaseService } from '../../../service/core/use-cases/company.use-case.service';

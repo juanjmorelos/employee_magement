@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosInstance } from 'axios';
 import { HttpAdapter } from './http.adapter';
 
 interface Options {
@@ -23,17 +23,25 @@ export class AxiosAdapter implements HttpAdapter{
       throw new Error(`Error fetching get: ${url}, ${error}`);
     }
   }
-  async post<T>(url: string, json: any): Promise<T> {
+  async post<T>(url: string, json: any, contentType: string): Promise<T> {
     try {
-      const {data} = await this.axiosInstance.post(url, json);
+      const {data} = await this.axiosInstance.post(url, json, {
+        headers: {
+          'Content-Type': contentType // Header para la petición POST
+        }
+      });
       return data;
     } catch (error) {
       throw new Error(`Error fetching post: ${url}, ${error}`);
     }
   }
-  async put<T>(url: string, json: any): Promise<T> {
+  async put<T>(url: string, json: any, contentType: string): Promise<T> {
     try {
-      const {data} = await this.axiosInstance.put(url, json);
+      const {data} = await this.axiosInstance.put(url, json, {
+        headers: {
+          'Content-Type': contentType // Header para la petición POST
+        }
+      });
       return data;
     } catch (error) {
       throw new Error(`Error fetching put: ${url}, ${error}`);
