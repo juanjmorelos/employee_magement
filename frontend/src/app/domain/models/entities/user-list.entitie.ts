@@ -9,6 +9,7 @@ export interface UsersList {
     id:             number;
     identifier:     number;
     lastName:       string;
+    salary:       string;
     name:           string;
     positionName:   string;
     retirementDate: null | string;

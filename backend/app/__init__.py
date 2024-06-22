@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
+
 mysql = mysql.connector.connect(
     user=os.environ.get('MYSQL_USER'),
     password=os.environ.get('MYSQL_PASSWORD'),
@@ -17,7 +18,6 @@ mysql = mysql.connector.connect(
 
 def create_app():
     app = Flask(__name__)
-    
     CORS(app)
     # Configuraciones
     basedir = os.path.abspath(os.path.dirname(__file__))

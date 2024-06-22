@@ -23,9 +23,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @for (employee of employeeList; track employee) {
+                    @for (employee of employeeList; track $index) {
                     <tr class="hover">
-                        <th>{{ employee.id }}</th>
+                        <th>{{ $index }}</th>
                         <td>{{ employee.identifier }}</td>
                         <td>{{ employee.name }} {{ employee.lastName }}</td>
                         <td>{{ employee.positionName }}</td>
@@ -58,8 +58,7 @@
                                     </button>
                                     <ul tabindex="0"
                                         class="dropdown-content z-[9999] menu p-2 shadow bg-base-100 rounded-box w-52">
-                                        
-                                            <li><a>Retirar</a></li>
+                                            <li><button onclick="my_modal_5.showModal()" (click)="selectUser(employee)">Retirar</button></li>
                                     </ul>
                                 </label>
                             }
@@ -69,5 +68,31 @@
                 </tbody>
             </table>
         </div>
+    </div>
+</div>
+
+<dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle" role="dialog">
+    <div class="modal-box">
+        <form method="dialog">
+            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        </form>
+        <h3 class="font-bold text-lg">Retirar</h3>
+        <div class="py-4">
+            ¿Esta seguro que desea retirar al empleado {{selectedUser?.name}} {{selectedUser?.lastName}} de la compañía? 
+        </div>
+        <div class="modal-action">
+            <form method="dialog">
+                <button class="btn btn-primary" (click)="dismissUser()">Aceptar</button>
+            </form>
+            <form method="dialog">
+                <button class="btn btn-secondary">Cancelar</button>
+            </form>
+        </div>
+    </div>
+</dialog>
+
+<div class="toast toast-bottom toast-end toast-transition" [ngClass]="{'show': showWarning, 'hide': !showWarning && warningDismissed}">
+    <div class="alert alert-success">
+        <span>{{toastMessage}}</span>
     </div>
 </div>

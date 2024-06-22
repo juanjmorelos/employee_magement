@@ -1,10 +1,10 @@
 <div class="card w-full bg-base-100 shadow-xl overflow-hidden py-4 flex flex-col">
     <div class="grid grid-cols-6 justify-center items-center w-full">
-        <img src="https://www.acofi.edu.co/wp-content/uploads/2013/10/CORPORACION-UNIVERSITARIA-MINUTO-DE-DIOS.jpeg"
-            alt="logo" class="self-start w-24 ml-[50px]">
+        <img [src]="getCompanyLogo()"
+            alt="logo" class="self-start w-40 ml-[50px]" style="place-self: center;">
         <figure class="col-span-4 flex flex-col">
-            <label class="font-bold text-center text-sm">CORPORACION UNIVERSITARIA MINUTO DE DIOS</label>
-            <label class="font-bold text-center text-sm">NIT: 8023838398</label>
+            <label class="font-bold text-center text-sm">{{getCompanyName()}}</label>
+            <label class="font-bold text-center text-sm">NIT: {{data?.company?.identifier}}</label>
             <label class="font-bold text-center text-sm">COMPROBANTE DE NÓMINA</label>
             <label class="font-bold text-center text-sm">{{month_letter}} 1 DE {{year}} A {{month_letter}} {{getPeriodDay(month)}} DE {{year}}</label>
         </figure>
@@ -15,15 +15,7 @@
                 <span class="font-semibold">Página: </span> 1
             </label>
             <label>
-                <span class="font-semibold">Dirección: </span> CL 50#50-57
-            </label>
-        </div>
-        <div class="flex flex-col text-sm gap-4">
-            <label>
-                <span class="font-semibold">Email: </span> juan.morelos&#64;uniminuto.edu.co
-            </label>
-            <label>
-                <span class="font-semibold">Teléfono: </span> 60565677
+                <span class="font-semibold">Email: </span> {{data?.user?.email}}
             </label>
         </div>
         <div class="flex flex-col text-sm gap-4">
@@ -39,23 +31,23 @@
     <div class="grid grid-cols-3 p-[10px] mx-2 border rounded-2xl border-gray-400 mt-3">
         <div class="flex flex-col text-sm gap-4">
             <label>
-                <span class="font-semibold">Identificación: </span> 1065013739
+                <span class="font-semibold">Identificación: </span> {{data?.user?.identifier}}
             </label>
             <label>
-                <span class="font-semibold">Sueldo básico: </span> $ 4,000,000
-            </label>
-        </div>
-        <div class="flex flex-col text-sm gap-4">
-            <label>
-                <span class="font-semibold">Apellido y nombre: </span> Morelos Acosta Juan
-            </label>
-            <label>
-                <span class="font-semibold">Cargo: </span> Desarrollador de aplicaciones junior
+                <span class="font-semibold">Sueldo básico: </span> {{getFormattedSalary()}}
             </label>
         </div>
         <div class="flex flex-col text-sm gap-4">
             <label>
-                <span class="font-semibold">Cuenta:</span> 4990005433
+                <span class="font-semibold">Apellido y nombre: </span>{{data?.user?.lastName}} {{data?.user?.name}}
+            </label>
+            <label>
+                <span class="font-semibold">Cargo: </span> {{data?.user?.positionName}}
+            </label>
+        </div>
+        <div class="flex flex-col text-sm gap-4">
+            <label>
+                <span class="font-semibold">Cuenta:</span> {{data?.user?.account}}
             </label>
             <label>
                 <span class="font-semibold">Entidad: </span> Bancolombia
@@ -77,24 +69,31 @@
                 <tr>
                     <th>001</th>
                     <td>Salario básico</td>
-                    <td>4.000.000</td>
+                    <td>{{formatNumber(data?.user!.salary)}}</td>
                 </tr>
+                @if(data?.salaryData?.transportContribution !== undefined) {
+                    <tr>
+                        <th>500</th>
+                        <td>Subsidio de transporte</td>
+                        <td>{{formatNumber(data?.salaryData!.transportContribution!)}}</td>
+                    </tr>
+                }
                 <tr>
                     <th>501</th>
                     <td>Aporte salud</td>
-                    <td>-160.000</td>
+                    <td>-{{formatNumber(data?.salaryData!.healthValue)}}</td>
                 </tr>
                 <tr>
                     <th>502</th>
                     <td>Aporte pensión</td>
-                    <td>-160.000</td>
+                    <td>-{{formatNumber(data?.salaryData!.pensionValue)}}</td>
                 </tr>
                 <tr class="bg-base-200">
                     <td class="text-end text-black font-semibold" colspan="2">
                         Total deducciones
                     </td>
                     <td class="text-black">
-                        320.000
+                        {{formatNumber(data?.salaryData!.discount)}}
                     </td>
                 </tr>
                 <tr class="bg-base-200">
@@ -102,7 +101,7 @@
                         Total pago neto
                     </td>
                     <td class="text-black">
-                        3.680.000
+                        {{formatNumber(data?.salaryData!.netSalary)}}
                     </td>
                 </tr>
             </tbody>

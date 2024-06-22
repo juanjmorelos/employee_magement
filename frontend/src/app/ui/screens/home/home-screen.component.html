@@ -61,14 +61,14 @@
                             Nomina
                         </summary>
                         <ul class="pl-4">
-                            @if (user!.privileges == 1 || user!.privileges == 2) {
+                            @if (false) {
                                 <li class="hover:bg-base-100 hover:text-black hover:rounded-lg" routerLinkActive="text-black rounded-lg bg-base-100" [routerLinkActiveOptions]="{ exact: true }">
                                     <a routerLink="/home/request_payment" class="focus:outline-none focus:ring-0 focus:bg-white focus:text-black focus:rounded-lg">
                                         Solicitar pago de nómina
                                     </a>
                                 </li>
                             }
-                            @if (user!.privileges == 1 || user!.privileges == 2) {
+                            @if (false) {
                                 <li class="hover:bg-base-100 hover:text-black hover:rounded-lg" routerLinkActive="text-black rounded-lg bg-base-100" [routerLinkActiveOptions]="{ exact: true }">
                                     <a routerLink="/home/payment_authorization" class="focus:outline-none focus:ring-0 focus:bg-white focus:text-black focus:rounded-lg">
                                         Autorizar pago de nómina
@@ -97,7 +97,7 @@
                         Actualizar mis datos
                     </a>
                 </li>
-                @if (user!.privileges == 1 || user!.privileges == 2) {
+                @if (user!.privileges == 1) {
                     <li class="hover:bg-base-100 hover:text-black hover:rounded-lg" routerLinkActive="text-black rounded-lg bg-base-100" [routerLinkActiveOptions]="{ exact: false }">
                         <a routerLink="/home/company" class="focus:outline-none focus:ring-0 focus:bg-white focus:text-black focus:rounded-lg">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">

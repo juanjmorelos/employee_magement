@@ -6,17 +6,17 @@
                 <label class="label">
                     <span class="label-text font-semibold">Correo personal</span>
                 </label>
-                <input type="text" class="input input-bordered" value="juanjmorelos13@gmail.com" />
+                <input type="text" class="input input-bordered" [(ngModel)]="currentEmail" />
             </div>
             <div class="form-control w-full">
                 <label class="label">
                     <span class="label-text font-semibold">Usuario</span>
                 </label>
-                <input type="text" class="input input-bordered" value="juanjmorelos" />
+                <input type="text" class="input input-bordered pointer-events-none" [value]="currentUser?.username" />
             </div>
             <button class="btn btn-secondary w-full mt-3" onclick="my_modal_2.showModal()">Cambiar contraseña</button>
             <div class="card-actions pt-8 w-full">
-                <button class="btn btn-primary w-full">Guardar cambios</button>
+                <button class="btn btn-primary w-full" (click)="updateData()">Guardar cambios</button>
             </div>
         </div>
     </div>

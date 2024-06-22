@@ -13,8 +13,8 @@ export class Helpers {
         return months[monthNumber - 1];
     }
 
-    static getWorkedTime(admissionDate: string) {
-        const actualDate = new Date();
+    static getWorkedTime(admissionDate: string, retiredDate: string = "") {
+        const actualDate = retiredDate != "" ? new Date(retiredDate) : new Date();
         const admisionedDate = new Date(admissionDate);
         let totalMonthsDiff = differenceInMonths(actualDate, admisionedDate);
         const yearsWorked = totalMonthsDiff / 12;

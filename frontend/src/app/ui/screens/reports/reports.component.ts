@@ -5,6 +5,10 @@ import { CommonModule } from '@angular/common';
 import { ReportDetailComponent } from "./components/report-detail/report-detail.component";
 import { Helpers } from '../../../domain/helpers/helpers';
 import { ActivatedRoute } from '@angular/router';
+import { UserData } from '../../../domain/models/entities/user.entitie';
+import { ReportUseCaseService } from '../../../service/core/use-cases/report.use-cuse.service';
+import { serviceFetcher } from '../../../service/adapters/service.adapter';
+import { ReportData, UserReportData } from '../../../domain/models/entities/reports.entitie';
 
 
 @Component({
@@ -21,19 +25,44 @@ export class ReportsComponent {
     warningDismissed: boolean = false
     showReport: boolean = false;
     id: string = "";
+    currentUser?: UserData
+    reportUseCaseService = new ReportUseCaseService(serviceFetcher)
+    report?: ReportData
+    userReport?: UserReportData
 
     constructor(private route: ActivatedRoute) {}
 
-    ngOnInit() {
+    async ngOnInit() {
         this.id = this.route.snapshot.paramMap.get('id') ?? "";
-     }
+        const userData = localStorage.getItem('userData');
+        this.currentUser = JSON.parse(userData!)
+        if(this.id != "") {
+            await this.getReport()
+        }
+    }
 
-    searchPayment() {
+    async getReport() {
+        const response = await this.reportUseCaseService.getUserPayment(this.currentUser!.id.toLocaleString(), this.id)
+        if(response.success) {
+            this.userReport = response.data.user
+        }
+    }
+
+    async searchPayment() {
+        const userToConsult = this.id == "" ? this.currentUser!.id.toString() : this.id
         if(this.month != '' && this.year != '') {
-            this.showReport = true
+            const response = await this.reportUseCaseService.getUserPayment(this.currentUser!.id.toLocaleString(), userToConsult)
+            if(response.success) {
+                this.report = response.data
+                this.showReport = true
+            }
             return
         }
         this.showToast(2500)
+    }
+
+    exportPdf() {
+        
     }
 
     showToast(duration: number = 1500) {

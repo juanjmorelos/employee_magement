@@ -4,7 +4,7 @@
             <label class="label">
                 <span class="label-text font-semibold">Nombre</span>
             </label>
-            @if(user != undefined) {
+            @if(user != undefined || blank) {
                 <input type="text" class="input input-bordered" [ngClass]="{'pointer-events-none': !editable}" [value]="blank ? '' :  user!.name" 
                 [readonly]="!editable" aria-readonly="true"/>
             } @else if(userDetail != undefined){
@@ -16,7 +16,7 @@
             <label class="label">
                 <span class="label-text font-semibold">Apellido</span>
             </label>
-            @if(user != undefined) {
+            @if(user != undefined || blank) {
                 <input type="text" class="input input-bordered" [ngClass]="{'pointer-events-none': !editable}" [value]="blank ? '' : user!.lastName" 
                 [readonly]="!editable" aria-readonly="true"/>
             }  @else if(userDetail != undefined){ 
@@ -30,7 +30,7 @@
             <label class="label">
                 <span class="label-text font-semibold">Email personal</span>
             </label>
-            @if(user != undefined) {
+            @if(user != undefined || blank) {
                 <input type="text" class="input input-bordered" [ngClass]="{'pointer-events-none': !editable}" [value]="blank ? '' : user!.email" 
                 [readonly]="!editable" aria-readonly="true"/>
             } @else if(userDetail != undefined){ 

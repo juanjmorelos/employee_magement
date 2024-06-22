@@ -1,6 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+interface SelectData {
+  value: string,
+  label: string
+}
 
 @Component({
   selector: 'info-card',
@@ -13,6 +17,8 @@ export class InfoCardComponent {
   @Input()
   title: string = ""
   @Input()
+  subtitle2: string = ""
+  @Input()
   value: string = ""
   @Input()
   subtitle: string = ""
@@ -20,4 +26,6 @@ export class InfoCardComponent {
   child: boolean = false
   @Input()
   editable:boolean = false
+  @Input()
+  data: SelectData[] = []
 }

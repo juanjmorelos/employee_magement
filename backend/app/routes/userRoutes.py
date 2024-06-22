@@ -379,6 +379,7 @@ def getAllUsers(transactUser):
                         u.lastName, 
                         u.identifier, 
                         u.retirementDate, 
+                        u.salary,
                         pos.positionName AS positionName
                     FROM 
                         users AS u
@@ -536,7 +537,6 @@ def getUserPayment(body):
                     "discount": contributions,
                     "healthValue": healthValue,
                     "pensionValue": pensionValue,
-                    "transportContribution": transportContribution
                 }
                 if mainSalary < minSalary:
                     mainSalary = mainSalary + transportContribution
@@ -569,3 +569,61 @@ def getUserPayment(body):
             }), 400
     except Exception as e:
         return Utils.sendErrorMessage(e, "Ocurrio un error al consultar detalle de usuario")
+    
+@users.route("/updateEmail", methods=["PUT"])
+def updateUserEmail():
+    try:
+        data = request.json
+        if 'email' not in data or 'userId' not in data:
+            return jsonify({
+                "success": False,
+                "message": "Campos faltantes"
+            })
+        email = data.get('email')
+        userId = data.get('userId')
+
+        cursor1 = mysql.cursor()
+        cursor1.execute("UPDATE users SET email = %s where id = %s", (email, userId))
+        mysql.commit()
+        
+        cursor = mysql.cursor(dictionary=True)
+        cursor.execute('''
+            SELECT 
+                emp.id, 
+                emp.name, 
+                emp.password,
+                emp.lastName, 
+                emp.identifier, 
+                emp.username, 
+                emp.email, 
+                emp.admissionDate, 
+                emp.retirementDate, 
+                emp.salary, 
+                emp.birthdate, 
+                c.cesatiasName as cesantias, 
+                p.pensionName as pension, 
+                a.arlName as arlInsurance, 
+                hi.insuranceName AS healthyInsuranceName,  -- Nombre del seguro médico obtenido del JOIN
+                emp.isActive, 
+                pos.positionName AS positionName,  -- Nombre del cargo obtenido del JOIN
+                emp.privileges, 
+                comp.name AS companyName  -- Nombre de la empresa obtenido del JOIN
+            FROM 
+                users AS emp
+            LEFT JOIN healthyInsurance AS hi ON emp.healthyInsurance = hi.id
+            LEFT JOIN position AS pos ON emp.position = pos.id
+            LEFT JOIN companysettings AS comp ON emp.company = comp.id
+            LEFT JOIN arlinsurance a on a.id = emp.arlInsurance
+            LEFT JOIN pension p on p.id = emp.pension
+            LEFT JOIN cesantias c on c.id = emp.cesantias
+            WHERE emp.id = %s;
+        ''', (userId,))
+        result = cursor.fetchone()
+
+        return jsonify({
+            "success": True,
+            "message": "Email actualizado correctamente",
+            "data": result
+        })
+    except Exception as e:
+        return Utils.sendErrorMessage(e, "Ocurrio un error al actualizar email")

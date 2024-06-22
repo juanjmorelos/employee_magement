@@ -6,13 +6,13 @@
                 <label class="label">
                     <span class="label-text font-semibold">Nombre</span>
                 </label>
-                <input type="text" class="input input-bordered" value="Universidad Minuto de Dios" />
+                <input type="text" class="input input-bordered" [(ngModel)]="companyName"/>
             </div>
             <div class="form-control w-full mb-3">
                 <label class="label">
                     <span class="label-text font-semibold">Nit</span>
                 </label>
-                <input type="number" class="input input-bordered" value="8023838398" />
+                <input type="number" class="input input-bordered" [(ngModel)]="identifier" />
             </div>
             <div class="grid grid-cols-1 space-y-2 form-contro w-full">
                 <label class="label">
@@ -21,16 +21,14 @@
                 <div class="flex items-center justify-center w-full">
                     <label class="flex flex-col rounded-lg border-4 border-dashed w-full h-60 p-10 group text-center">
                         <div class="h-full w-full text-center flex flex-col items-center justify-center items-center  ">
-                            <div class="flex flex-auto max-h-48 w-2/5 mx-auto -mt-10">
-                                <img class="has-mask w-36 object-center mb-3 mt-3"
-                                    src="https://img.freepik.com/free-vector/image-upload-concept-landing-page_52683-27130.jpg?size=338&ext=jpg"
-                                    alt="freepik image">
-                            </div>
+                            <img class="w-2/3 mb-3 mt-0"
+                                [src]="companyLogo"
+                                alt="freepik image">
                             <p class="pointer-none text-gray-500 ">
                                 <label for="input-file" class="text-primary hover:underline cursor-pointer">Selecciona un archivo</label>
                             </p>
                         </div>
-                        <input type="file" class="hidden" id="input-file" accept="png, jpg, jpeg">
+                        <input type="file" class="hidden" id="input-file" accept="image/png, image/jpeg" (change)="onFileSelected($event)">
                     </label>
                 </div>
             </div>
@@ -38,7 +36,13 @@
                 <span>Archivos permitidos: png, jgp, jpeg</span>
             </p>
             <div class="card-actions pt-8 w-full">
-                <button class="btn btn-primary w-full">Guardar cambios</button>
+                <button class="btn btn-primary w-full" (click)="updateCompanyData()">Guardar cambios</button>
             </div>
+        </div>
+    </div>
+
+    <div class="toast toast-bottom toast-end toast-transition" [ngClass]="{'show': showWarning, 'hide': !showWarning && warningDismissed}">
+        <div class="alert" [ngClass]="{'alert-warning': typeWarning(), 'alert-success': typeSuccess()}">
+            <span>{{toastMessage}}</span>
         </div>
     </div>

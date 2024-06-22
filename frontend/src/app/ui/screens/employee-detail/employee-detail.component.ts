@@ -54,9 +54,19 @@ export class EmployeeDetailComponent implements OnInit{
 
   getWorkDays() {
     if(this.loaded) {
+      if(this.userDetail?.retirementDate != null) {
+        return Helpers.getWorkedTime(this.userDetail!.admissionDate, this.userDetail.retirementDate)
+      }
       return Helpers.getWorkedTime(this.userDetail!.admissionDate)
     }
     return ""
+  }
+
+  getIsActive() {
+    if(this.loaded) {
+      return this.userDetail!.retirementDate === null
+    }
+    return false
   }
 
   getFormattedDate(date: string) {
@@ -79,6 +89,69 @@ export class EmployeeDetailComponent implements OnInit{
       return date.toISOString().substring(0, 10);
     }
     return ""
+  }
+
+  getArlData() {
+    return [
+      {
+        value: "1",
+        label: "Sura"
+      },
+      {
+        value: "2",
+        label: "Seguros bolívar"
+      },
+      {
+        value: "3",
+        label: "Positiva"
+      }
+    ]
+  }
+
+  getPensionData() {
+    return [
+      {
+        value: "1",
+        label: "Protección"
+      },
+      {
+        value: "2",
+        label: "Colpensiones"
+      },
+    ]
+  }
+  getCesantiasData() {
+    return [
+      {
+        value: "1",
+        label: "Protección"
+      },
+      {
+        value: "2",
+        label: "Colpensiones"
+      },
+    ]
+  }
+
+  getHelathyInsuranceData() {
+    return [
+      {
+        value: "1",
+        label: "Mutualser"
+      },
+      {
+        value: "2",
+        label: "Sura"
+      },
+      {
+        value: "3",
+        label: "Colsanitas"
+      },
+      {
+        value: "4",
+        label: "Nueva eps"
+      }
+    ]
   }
 
 }

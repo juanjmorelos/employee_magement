@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, current_app
+from flask import Blueprint, request, jsonify, current_app, send_from_directory
 import os
 from app import app, mysql
 from datetime import datetime
@@ -17,7 +17,6 @@ def addCompany():
 
         name = request.form['name']
         identifier = request.form['identifier']
-        logo = request.files['logo']
         userId = request.form['userId']
 
         cursor = mysql.cursor(dictionary=True)  # Usar dictionary=True para obtener los resultados como diccionarios
@@ -29,18 +28,25 @@ def addCompany():
             # result es una tupla, accede al primer elemento para obtener el nombre
             privilegies = result['privileges']
             if privilegies == 1:
-                file_extension = os.path.splitext(logo.filename)[1]
+                if 'logo' not in request.files:
+                    cursor = mysql.cursor()
+                    cursor.execute("UPDATE companySettings SET name = %s, identifier = %s", (name, identifier))
+                    mysql.commit()
+                    cursor.close()
+                else: 
+                    logo = request.files['logo']
+                    file_extension = os.path.splitext(logo.filename)[1]
+                    current_time = datetime.now().strftime("%Y%m%d%H%M%S%f")
+                    filename = f"{current_time}_{identifier}{file_extension}"
+                    photo_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+                    filePath = "/uploads/" + filename
 
-                current_time = datetime.now().strftime("%Y%m%d%H%M%S%f")
-                filename = f"{current_time}_{identifier}{file_extension}"
-                photo_path = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+                    logo.save(photo_path)
 
-                logo.save(photo_path)
-
-                cursor = mysql.cursor()
-                cursor.execute("UPDATE companySettings SET name = %s, logo = %s, identifier = %s", (name, photo_path, identifier))
-                mysql.commit()
-                cursor.close()
+                    cursor = mysql.cursor()
+                    cursor.execute("UPDATE companySettings SET name = %s, logo = %s, identifier = %s", (name, filePath, identifier))
+                    mysql.commit()
+                    cursor.close()
 
                 return jsonify({
                         'success': True,
@@ -58,3 +64,8 @@ def addCompany():
             }), 404
     except Exception as e:
         return Utils.sendErrorMessage(e)
+
+@company.route('/uploads/<filename>', methods=['GET'])
+def serve_file(filename):
+    uploads_dir = os.path.join(app.root_path, '..', 'uploads')
+    return send_from_directory(uploads_dir, filename)
