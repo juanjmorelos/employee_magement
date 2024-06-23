@@ -62,7 +62,7 @@ El proyecto se realizo utilizando las siguientes tecnologías:
     pip install flask-cors
     ```
 > En MacOS sino le funciona pip install use pip3 install
-3. Haga una copia de archivo `.env.template`, renombrelo a `.env` y llene los datos que ahí le pide
+3. Haga una copia del archivo `.env.template`, renombrelo a `.env` y llene los datos que ahí le pide
     ```env
     MYSQL_USER=
     MYSQL_PASSWORD=
