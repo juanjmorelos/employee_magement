@@ -61,7 +61,7 @@ El proyecto se realizo utilizando las siguientes tecnologías:
     pip install mysql-connector-python
     pip install flask-cors
     ```
-> En MacOS sino le funciona pip install use pip3 install
+    > En MacOS sino le funciona pip install use pip3 install
 3. Haga una copia del archivo `.env.template`, renombrelo a `.env` y llene los datos que ahí le pide
     ```env
     MYSQL_USER=
@@ -76,7 +76,7 @@ El proyecto se realizo utilizando las siguientes tecnologías:
     cd backend
     python run.py
     ```
-> En MacOS si no le funciona el comando python use python3
+    > En MacOS si no le funciona el comando python use python3
 5. Debe ver algo así en la consola lo que significa que el servidor se levanto correctamente
     ```sh
     * Serving Flask app 'app'
@@ -84,7 +84,7 @@ El proyecto se realizo utilizando las siguientes tecnologías:
     WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
     * Running on http://127.0.0.1:5000
     Press CTRL+C to quit
-```
+    ```
 
 ### Frontend
 1. Dirijase a la carpeta `frontend`, abra una terminal, cmd o consola de comandos y ejecute el siguiente comando para instalar las librerías necesarias  y que se cree la carpeta node_modules
