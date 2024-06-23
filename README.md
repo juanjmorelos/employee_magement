@@ -32,7 +32,7 @@ Actualmenente el proyecto no tiene las siguientes funcionalidades (Se espera má
 - Autorizar o rechazar solicitudes de pago de nómina
 
 ### Tecnologías usadas
-El proyecto se realizo utilizando las siguientes tecnologías:
+El proyecto se realizó utilizando las siguientes tecnologías:
 
 - **Base de datos:** MySQL
 - **Backend:** Python
