@@ -54,48 +54,48 @@ El proyecto se realizo utilizando las siguientes tecnologías:
 ### Levantar backend
 1. Una vez que tiene instalado python diríjase a la carpeta `backend` que contiene el código
 2. Debe instalar las siguientes librerías, abra un cmd, terminal o consola de comandos y ejecute los siguientes comandos:
-```sh
-pip install bcrypt 
-pip install flask
-pip install python-dotenv
-pip install mysql-connector-python
-pip install flask-cors
-```
+    ```sh
+    pip install bcrypt 
+    pip install flask
+    pip install python-dotenv
+    pip install mysql-connector-python
+    pip install flask-cors
+    ```
 > En MacOS sino le funciona pip install use pip3 install
 3. Haga una copia de archivo `.env.template`, renombrelo a `.env` y llene los datos que ahí le pide
-```env
-MYSQL_USER=
-MYSQL_PASSWORD=
-MYSQL_DB_NAME=
-MYSQL_HOST=
-MYSQL_PORT=
-```
+    ```env
+    MYSQL_USER=
+    MYSQL_PASSWORD=
+    MYSQL_DB_NAME=
+    MYSQL_HOST=
+    MYSQL_PORT=
+    ```
 4. Una vez haya hecho lo anterior abra una terminal, cmd o consola de comandos, y levante el servidor con el siguiente comando:
-```sh
-# Asegúrese de estar situado dentro de la carpeta backend
-cd backend
-python run.py
-```
+    ```sh
+    # Asegúrese de estar situado dentro de la carpeta backend
+    cd backend
+    python run.py
+    ```
 > En MacOS si no le funciona el comando python use python3
 5. Debe ver algo así en la consola lo que significa que el servidor se levanto correctamente
-```sh
- * Serving Flask app 'app'
- * Debug mode: off
-WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
- * Running on http://127.0.0.1:5000
-Press CTRL+C to quit
+    ```sh
+    * Serving Flask app 'app'
+    * Debug mode: off
+    WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+    * Running on http://127.0.0.1:5000
+    Press CTRL+C to quit
 ```
 
 ### Frontend
 1. Dirijase a la carpeta `frontend`, abra una terminal, cmd o consola de comandos y ejecute el siguiente comando para instalar las librerías necesarias  y que se cree la carpeta node_modules
-```sh
-# Asegúrese de estar situado dentro de la carpeta frontend
-cd frontend
-npm i
-```
+    ```sh
+    # Asegúrese de estar situado dentro de la carpeta frontend
+    cd frontend
+    npm i
+    ```
 2. Una vez se instalen las librerías y creada la carpeta node_modules puede ejecutar el proyecto con el siguiente comando:
-```sh
-npm start
-# Puede usar también
-ng serve -o
-```
+    ```sh
+    npm start
+    # Puede usar también
+    ng serve -o
+    ```
