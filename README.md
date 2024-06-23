@@ -26,10 +26,10 @@ Actualmente el proyecto tiene las siguientes funcionalidades:
 Actualmenente el proyecto no tiene las siguientes funcionalidades (Se espera más adelante implementarlas):
 
 - Los listados de empresas prestadoras de servicios: ARL, Pension, Seguro médico y Censatías, aunque haya registros en base de datos, no se muestran en el aplicativo, actualmente se muestran datos estáticos
-- Actualizar los datos de un empleado en el detalle de empleados
-- Agregar empresas prestadoras de los servicios de: ARL, Pension, Seguro médico y Censatías
-- Realizar solicitudes de pago de nómina
-- Autorizar o rechazar solicitudes de pago de nómina
+- No puede ctualizar los datos de un empleado en el detalle de empleados
+- No puede agregar empresas prestadoras de los servicios de: ARL, Pension, Seguro médico y Censatías
+- No puede realizar solicitudes de pago de nómina
+- No puede autorizar o rechazar solicitudes de pago de nómina
 
 ### Tecnologías usadas
 El proyecto se realizó utilizando las siguientes tecnologías:
