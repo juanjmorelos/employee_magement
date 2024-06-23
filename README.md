@@ -23,11 +23,11 @@ Actualmente el proyecto tiene las siguientes funcionalidades:
 > *Si tiene privilegios
 
 
-Actualmenente el proyecto no tiene las siguientes funcionalidades (Se espera más adelante implementarlas):
+Actualmente el proyecto no tiene las siguientes funcionalidades (Se espera más adelante implementarlas):
 
-- Los listados de empresas prestadoras de servicios: ARL, Pension, Seguro médico y Censatías, aunque haya registros en base de datos, no se muestran en el aplicativo, actualmente se muestran datos estáticos
-- No puede ctualizar los datos de un empleado en el detalle de empleados
-- No puede agregar empresas prestadoras de los servicios de: ARL, Pension, Seguro médico y Censatías
+- Los listados de empresas prestadoras de servicios: ARL, Pensión, Seguro médico y Cesantías, aunque haya registros en base de datos, no se muestran en el aplicativo, actualmente se muestran datos estáticos
+- No puede actualizar los datos de un empleado en el detalle de empleados
+- No puede agregar empresas prestadoras de los servicios de: ARL, Pensión, Seguro médico y Cesantías
 - No puede realizar solicitudes de pago de nómina
 - No puede autorizar o rechazar solicitudes de pago de nómina
 
