@@ -10,7 +10,7 @@ Actualmente el proyecto tiene las siguientes funcionalidades:
 - Puede visualizar la lista de empleados*
 - Puede ver el detalle de cada empleado*
 - Puede retirar un empleado de la compañía*
-- Puede visualizar cuantos empleados tiene, cuantos actuivos y cuantos retirados*
+- Puede visualizar cuantos empleados tiene, cuantos activos y cuantos retirados*
 - Puede registrar empleados*
 - Puede visualizar el valor total de la nómina
 - Puede ver el comprobante nómina de cada empleado registrado y exportarlo a PDF*
