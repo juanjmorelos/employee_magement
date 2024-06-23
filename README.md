@@ -47,7 +47,7 @@ El proyecto se realizo utilizando las siguientes tecnologías:
 
 ### Importar base de datos
 1. Diríjase al carpeta `database` aquí encontrara un archivo llamado `employee_management.sql` que contiene la base de datos.
-2. Cree una base de datos en su herramienta local MySQL, ya sea MySQL Workbench, phpMyAdmin o cualquier otra que desee ejecutar.
+2. Cree una base de datos en su herramienta local MySQL, ya sea MySQL Workbench, phpMyAdmin o cualquier otra que desee utilizar.
 3. Importe el archivo `employee_management.sql` que se encuentra en la ruta antes mencionada
 4. Ahora tendrá lista la base de datos que espera el aplicativo
 
