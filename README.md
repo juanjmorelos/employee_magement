@@ -62,7 +62,7 @@ El proyecto se realizó utilizando las siguientes tecnologías:
     pip install flask-cors
     ```
     > En MacOS sino le funciona pip install use pip3 install
-3. Haga una copia del archivo `.env.template`, renombrelo a `.env` y llene los datos que ahí le pide
+3. Haga una copia del archivo `.env.template`, renómbrelo a `.env` y llene los datos que ahí le pide
     ```env
     MYSQL_USER=
     MYSQL_PASSWORD=
@@ -70,7 +70,7 @@ El proyecto se realizó utilizando las siguientes tecnologías:
     MYSQL_HOST=
     MYSQL_PORT=
     ```
-4. Una vez haya hecho lo anterior abra una terminal, cmd o consola de comandos, y levante el servidor con el siguiente comando:
+4. Una vez haya hecho lo anterior abra una terminal, cmd o consola de comandos y levante el servidor con el siguiente comando:
     ```sh
     # Asegúrese de estar situado dentro de la carpeta backend
     cd backend
