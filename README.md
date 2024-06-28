@@ -40,7 +40,7 @@ El proyecto se realizó utilizando las siguientes tecnologías:
     - Para el frontend se utilizaron los siguientes frameworks css:
         - Tailwind CSS
         - Daisy UI (Plugin de Tailwind CSS)
--**Automatización de pruebas**: Selenium con python
+- **Automatización de pruebas**: Selenium con python
 
 ## Pasos para ejecutar
 
