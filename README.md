@@ -102,4 +102,4 @@ El proyecto se realizó utilizando las siguientes tecnologías:
     ```
 
 ## Automatización de pruebas
-Dirigirse a la rama [automatized_test](Dirigirse%20a%20la%20rama%20%28automatized_test%29%5Bhttps://github.com/juanjmorelos/employee_magement/tree/automatized_test%5D)
+Dirigirse a la rama [automatized_test](https://github.com/juanjmorelos/employee_magement/tree/automatized_test%5D)
