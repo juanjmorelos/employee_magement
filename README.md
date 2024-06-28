@@ -101,5 +101,5 @@ El proyecto se realizó utilizando las siguientes tecnologías:
     ng serve -o
     ```
 
-## Automatización de pruebas
+## Pruebas automatizadas
 Dirigirse a la rama [automatized_test](https://github.com/juanjmorelos/employee_magement/tree/automatized_test)
