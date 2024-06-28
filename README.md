@@ -99,3 +99,27 @@ El proyecto se realizó utilizando las siguientes tecnologías:
     # Puede usar también
     ng serve -o
     ```
+
+## Pruebas automatizadas
+Para ver las pruebas automatizadas diríjase a la carpeta `test` por el momento se hicieron pruebas para:
+- Login de usuario 
+- Registro de los empleados
+> Se espera más adelante automatizar los módulos faltantes
+
+### Login
+Para ver la automatización del login ejecute el siguiente comando
+```sh
+# Asegurese de estar dentro de la carpeta test
+cd test
+python loginTest.py
+```
+> En MacOS si no le funciona el comando python use python3
+
+### Registro de usuario
+Para ver la automatización del registro de usuario ejecute el siguiente comando
+```sh
+# Asegurese de estar dentro de la carpeta test
+cd test
+python registerUser.py
+```
+> En MacOS si no le funciona el comando python use python3
